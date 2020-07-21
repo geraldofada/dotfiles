@@ -128,6 +128,7 @@
     "a"   '(:ignore t :wk "applications")
     "ag"  '(:ignore t :wk "magit")
     "ags" '(magit-status :wk "status")
+    "agc" '(with-editor-finish :wk "finish commit")
     )
 
 (general-define-key
