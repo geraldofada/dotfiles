@@ -56,10 +56,17 @@
     :config
     (ivy-mode 1)
     (setq ivy-height 15))
+(use-package counsel-projectile :ensure t)
 (use-package evil :ensure t
     :config (evil-mode 1))
 (use-package which-key :ensure t
     :config (which-key-mode))
+(use-package projectile :ensure t
+    :config
+    (projectile-mode +1)
+    (setq projectile-completion-system 'ivy))
+(use-package magit :ensure t)
+(use-package evil-magit :ensure t)
 (use-package zenburn-theme :ensure t
     :config (load-theme 'zenburn t))
 
@@ -78,12 +85,12 @@
     :non-normal-prefix "C-SPC"
     ;; M-x
     "SPC" '(counsel-M-x :wk "exec")
-    ;; buffers
-    "b"   '(:ignore t :wk "buffers")
-    "bb"  '(ivy-switch-buffer :wk "buffers list")
+    ;; buffer
+    "b"   '(:ignore t :wk "buffer")
+    "bb"  '(ivy-switch-buffer :wk "buffer list")
     "bd"  '(kill-buffer-and-window :wk "delete buffer")
-    ;; windows
-    "w"   '(:ignore t :wk "windows")
+    ;; window
+    "w"   '(:ignore t :wk "window")
     "w/" '(split-window-vertically :wk "split horizontally")
     "wv" '(split-window-horizontally :wk "split vertically")
     "wd" '(delete-window :wk "delete window")
@@ -91,6 +98,7 @@
     "wj" '(windmove-down :wk "go down")
     "wl" '(windmove-right :wk "go right")
     "wh" '(windmove-left :wk "go left")
+    "wr" '(ivy-resume :wk "restore session")
     ;; search
     "/"   '(counsel-rg :wk "rg")
     "s"   '(:ignore t :wk "search")
@@ -99,16 +107,27 @@
     "j"   '(:ignore t :wk "jump")
     "jj"  '(avy-goto-char-2 :wk "jump to char")
     "jl"  '(avy-goto-line :wk "jump to line")
-    ;; files
-    "f"   '(:ignore t :wk "files")
+    ;; file
+    "f"   '(:ignore t :wk "file")
     "ff"  '(counsel-find-file :wk "find files")
     "fr"  '(counsel-recentf :wk "recent files")
     "fs"  '(save-buffer :wk "save")
+    ;; projectile
+    "p"   '(:ignore t :wk "project")
+    "p/"  '(counsel-projectile-rg :wk "project rg")
+    "pf"  '(projectile-find-file :wk "project find file")
+    "pr"  '(projectile-recentf :wk "project recent files")
+    "pb"  '(projectile-switch-to-buffer :wk "project buffer")
+    "pk"  '(projectile-kill-buffers :wk "project kill buffers")
+    "pp"  '(projectile-command-map :wk "projectile command")
+
     ;; quit
     "q"   '(:ignore t :wk "quit")
     "qq"  '(save-buffers-kill-emacs :wk "save and quit")
     ;; applications
     "a"   '(:ignore t :wk "applications")
+    "ag"  '(:ignore t :wk "magit")
+    "ags" '(magit-status :wk "status")
     )
 
 (general-define-key
@@ -120,6 +139,7 @@
     "M-k"    'ivy-beginning-of-buffer
     "C-y"    'ivy-scroll-up-command
     "C-e"    'ivy-scroll-down-command
+    "C-d"    'ivy-switch-buffer-kill
     )
 )
 ;; ========================================
@@ -187,7 +207,7 @@ geometry."
  ;; If there is more than one, they won't work right.
  '(package-selected-packages
    (quote
-    (counsel zenburn-theme which-key use-package general evil))))
+    (magit counsel zenburn-theme which-key use-package general evil))))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
