@@ -3,7 +3,7 @@
 (setq backup-directory-alist '(("." . "~/.emacs.d/backups"))
       backup-by-copying t     ; Don't delink hardlinks
       version-control t       ; Use version numbers on backups
-      delete-old-versions t  ; Automatically delete excess backups
+      delete-old-versions t   ; Automatically delete excess backups
       kept-new-versions 10    ; how many of the newest versions to keep
       kept-old-versions 5     ; and how many of the old
       )
@@ -38,7 +38,7 @@
 
 ;; ===== Packages settings =====
 (require 'package)
-(setq package-enable-at-startup nil) ; Prevents pacakges to load before startup
+(setq package-enable-at-startup nil) ; Prevents packages to load before startup
 (setq package-archives '(("org"       . "http://orgmode.org/elpa/")
                          ("gnu"       . "http://elpa.gnu.org/packages/")
                          ("melpa"     . "https://melpa.org/packages/")))
