@@ -60,8 +60,13 @@
 (use-package counsel-projectile :ensure t)
 (use-package evil :ensure t
     :config (evil-mode 1))
-(use-package magit :ensure t)
-(use-package evil-magit :ensure t)
+(use-package magit :ensure t
+    :commands (magit-git-status))
+(use-package evil-magit :ensure t
+    :after (magit))
+;; major modes
+(use-package org :ensure t
+    :mode "\\.org\\'")
 ;; fluffy
 (use-package zenburn-theme :ensure t
     :config
@@ -89,6 +94,11 @@
     (setq projectile-completion-system 'ivy))
 (use-package avy :ensure t
     :config (setq avy-timeout-seconds 0.3))
+(use-package esup  ;; profiling tool
+    :ensure t
+    :commands (esup)
+    ;; hack to stop esup from stepping into bin file
+    :config (setq esup-depth 0))
 
 ;; general pkg for keybinds
 (use-package general :ensure t
