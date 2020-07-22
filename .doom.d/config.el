@@ -54,6 +54,11 @@
 ;; You can also try 'gd' (or 'C-c c d') to jump to their definition and see how
 ;; they are implemented.
 
+;; counsel rg workaround
+;; source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
+(after! counsel
+  (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
+
 ;; Change splash image
 (setq fancy-splash-image "~/.doom.d/black-hole.png")
 
