@@ -21,12 +21,33 @@
   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
 
 ;; Org mode config
+
+(setq slipbox-path "z:/slipbox/")
+(setq bib-path "y:/Google Drive/Backups/slipbox_refs.bib")
 (setq org-directory "y:/.org/")
 
 (after! org
-    (setq org-superstar-headline-bullets-list nil))
+  (setq org-superstar-headline-bullets-list nil))
+
 (after! org-roam
-    (setq org-roam-directory "z:/slipbox/"))
+  (setq org-roam-directory slipbox-path))
+
+(after! org-ref
+  (setq bibtex-completion-bibliography bib-path)
+  (setq bibtex-completion-notes-path slipbox-path)
+  (setq bibtex-completion-pdf-field "File")
+
+  (setq ivy-re-builders-alist
+        '((ivy-bibtex . ivy--regex-ignore-order)
+          (t . ivy--regex-plus)))
+
+  (setq org-ref-completion-library 'org-ref-ivy-cite)
+  (setq org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
+  (setq org-ref-default-bibliography (list bib-path))
+  (setq org-ref-bibliography-notes (concat slipbox-path "bibnotes.org"))
+  (setq org-ref-notes-directory slipbox-path)
+  (setq org-ref-notes-function 'orb-edit-notes)
+  )
 
 ;; Persist Emacs initial frame
 ;; - source: https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
