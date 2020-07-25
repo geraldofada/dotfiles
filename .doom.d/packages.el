@@ -43,7 +43,9 @@
 (package! ivy-bibtex :pin "8a0dd9841316793aacddea744d6b8ca4a7857a35")
 (package! bibtex-completion :pin "8a0dd9841316793aacddea744d6b8ca4a7857a35")
 (package! org-ref :pin "9a8053f0b0e799b8edbae2376dda44704054725a")
-(package! org-roam-bibtex :pin "b0e2c23a590ad09120960f39353c4c6f879a97b4")
+
+;; (package! org-roam-bibtex :pin "b0e2c23a590ad09120960f39353c4c6f879a97b4")
+
 ;; Doom's packages are pinned to a specific commit and updated from release to
 ;; release. The `unpin!' macro allows you to unpin single packages...
 ;(unpin! pinned-package)
