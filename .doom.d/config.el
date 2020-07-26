@@ -23,7 +23,8 @@
 ;; Org mode config
 (setq slipbox-path "z:/slipbox/")
 (setq bib-path "y:/googledrive/Backups/slipbox_refs.bib")
-(setq org-directory "y:/.org/")
+(setq org-directory "z:/agenda/")
+(setq org-agenda-files '("z:/agenda/"))
 
 (after! org
   (setq org-superstar-headline-bullets-list nil)
@@ -56,6 +57,8 @@
     (setq org-ref-default-bibliography (list bib-path))
     (setq org-ref-bibliography-notes (concat slipbox-path "bibnotes.org"))
     (setq org-ref-notes-directory slipbox-path)
+    (setq  org-latex-pdf-process
+          '("latexmk -shell-escape -bibtex -pdf %f"))
   )
 
 (map! :after org-ref :map org-roam-mode-map :localleader "m c" #'org-ref-ivy-insert-cite-link)
