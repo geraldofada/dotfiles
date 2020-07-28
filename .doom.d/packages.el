@@ -40,6 +40,7 @@
 ;; Use `:pin' to specify a particular commit to install.
 ;(package! builtin-package :pin "1a2b3c4d5e")
 
+(package! org-roam :pin "f2c1500beb6bd75dac96ec39a9aa7d8571d03fc7")
 (package! ivy-bibtex :pin "8a0dd9841316793aacddea744d6b8ca4a7857a35")
 (package! bibtex-completion :pin "8a0dd9841316793aacddea744d6b8ca4a7857a35")
 (package! org-ref :pin "9a8053f0b0e799b8edbae2376dda44704054725a")

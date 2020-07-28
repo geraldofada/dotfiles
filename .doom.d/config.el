@@ -14,7 +14,6 @@
 (setq fancy-splash-image "y:/.doom.d/black-hole.png") ;; change splash art
 (global-visual-line-mode t) ;; wrap line
 
-
 ;; Counsel rg workaround
 ;; - source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
 (after! counsel
@@ -34,6 +33,8 @@
   :defer t
   :init
     (setq org-roam-directory slipbox-path)
+    (setq org-roam-graph-viewer "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
+    (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.45/bin/dot.exe")
   )
 
 (use-package! deft
@@ -57,12 +58,15 @@
     (setq org-ref-default-bibliography (list bib-path))
     (setq org-ref-bibliography-notes (concat slipbox-path "bibnotes.org"))
     (setq org-ref-notes-directory slipbox-path)
-    (setq  org-latex-pdf-process
+    (setq org-latex-pdf-process
           '("latexmk -shell-escape -bibtex -pdf %f"))
   )
 
 (map! :after org-ref :map org-roam-mode-map :localleader "m c" #'org-ref-ivy-insert-cite-link)
 (map! :after org-ref :map org-roam-mode-map :localleader "m r" #'org-ref)
+
+;; Latex
+(setq +latex-viewers '(sumatrapdf))
 
 ;; Persist Emacs initial frame
 ;; - source: https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
