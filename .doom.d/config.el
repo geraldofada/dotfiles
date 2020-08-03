@@ -1,7 +1,5 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
-;; NOTE: z (work) and y (home) drives are specified using subst on windows
-
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Geraldo Fada"
@@ -20,10 +18,11 @@
   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
 
 ;; Org mode config
-(setq slipbox-path "z:/slipbox/")
+;; NOTE: z (work) and y (home) drives are specified using subst on windows
+(setq slipbox-path "z:/notes/slipbox/")
 (setq bib-path "y:/googledrive/Backups/slipbox_refs.bib")
-(setq org-directory "z:/agenda/")
-(setq org-agenda-files '("z:/agenda/"))
+(setq org-directory "z:/notes/agenda/")
+(setq org-agenda-files '("z:/notes/agenda/"))
 
 (after! org
   (setq org-superstar-headline-bullets-list nil)
