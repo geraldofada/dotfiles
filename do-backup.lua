@@ -3,12 +3,19 @@
 --
 -- =============
 -- CONFIG
-
--- Backup this:
-SLIPBOX = "Z:\\slipbox"
--- into this:
-DROPBOX = "dropbox:Slipbox"
-GOOGLEDRIVE = "googledrive:/Backups/Slipbox"
+--
+to_backup = {
+  ["slipbox"] = {
+    path_local = "z:/notes/slipbox",
+    path_dropbox = "dropbox:Slipbox",
+    path_googledrive = "googledrive:/Backups/Slipbox",
+  },
+  ["finance"] = {
+    path_local = "z:/notes/finance",
+    path_dropbox = "dropbox:Finance",
+    path_googledrive = "googledrive:/Backups/Finance"
+  }
+}
 
 -- =============
 -- CODE
@@ -46,47 +53,53 @@ function cleanup(dir_to_del)
   return true
 end
 
-function main()
-  local result
+function print_with_id(id, msg)
+  print("["..id.."]" .. " " .. msg)
+end
 
-  if not check_tools() then
+function main()
+  if check_tools() then
+    print("All tools. OK")
+  else
     print("Please make sure that 7z and rclone are installed!")
     return
-  else
-    print("All tools. OK")
   end
 
-  result = backup_dir(SLIPBOX, "slipbox")
-  if not result[1] then
-    print("Something went wrong making the backup locally.")
-    return
-  else
-    print("Local backup. OK")
+  -- loop through all config
+  local result
+  for index, _ in pairs(to_backup) do
+
+    result = backup_dir(to_backup[index].path_local, index)
+    if result[1] then
+      print_with_id(index, "Local backup. OK")
+    else
+      print_with_id(index, "Something went wrong making the backup locally.")
+      return
+    end
+
+    if upload_dir(result[2], to_backup[index].path_googledrive) then
+      print_with_id(index, "Google Drive backup. OK.")
+    else
+      print_with_id(index, "Something went wrong uploading to Google Drive.")
+      return
+    end
+
+    if upload_dir(result[2], to_backup[index].path_dropbox) then
+      print_with_id(index, "Dropbox backup. OK.")
+    else
+      print_with_id(index, "Something went wrong uploading to Dropbox.")
+      return
+    end
+
+    if cleanup(result[2]) then
+      print_with_id(index, "Cleanup. OK")
+      os.execute("cls")
+    else
+      print_with_id(index, "Something went wrong cleaning up.")
+      return
+    end
+
   end
-
-  if not upload_dir(result[2], GOOGLEDRIVE) then
-    print("Something went wrong uploading to Google Drive.")
-
-  else
-    print("Google Drive backup. OK.")
-  end
-
-  if not upload_dir(result[2], DROPBOX) then
-    print("Something went wrong uploading to Dropbox.")
-    return
-  else
-    print("Dropbox backup. OK.")
-  end
-
-  if not cleanup(result[2]) then
-    print("Something went wrong cleaning up.")
-    return
-  else
-    print("Cleanup. OK")
-    os.execute("cls")
-  end
-
-  print("Done!")
 end
 
 main()
