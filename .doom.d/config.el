@@ -1,9 +1,11 @@
 ;;; $DOOMDIR/config.el -*- lexical-binding: t; -*-
 
+
 ;; Some functionality uses this to identify you, e.g. GPG configuration, email
 ;; clients, file templates and snippets.
 (setq user-full-name "Geraldo Fada"
       user-mail-address "geraldofada.neto@gmail.com")
+
 
 ;; Fluffy
 (setq doom-font (font-spec :family "Fira Code" :size 13))
@@ -12,10 +14,12 @@
 (setq fancy-splash-image "y:/.doom.d/black-hole.png") ;; change splash art
 (global-visual-line-mode t) ;; wrap line
 
+
 ;; Counsel rg workaround
 ;; - source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
 (after! counsel
   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
+
 
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
@@ -64,8 +68,18 @@
 (map! :after org-ref :map org-roam-mode-map :localleader "m c" #'org-ref-ivy-insert-cite-link)
 (map! :after org-ref :map org-roam-mode-map :localleader "m r" #'org-ref)
 
+
+;; Ledger mode
+(use-package! ledger
+  :defer t
+  :init
+    (add-to-list 'auto-mode-alist '("\\.\\(h?ledger\\|journal\\|j\\)$" . ledger-mode))
+  )
+
+
 ;; Latex
 (setq +latex-viewers '(sumatrapdf))
+
 
 ;; Persist Emacs initial frame
 ;; - source: https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
