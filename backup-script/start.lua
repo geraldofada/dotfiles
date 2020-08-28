@@ -169,6 +169,26 @@ function proc_copy_to_bck_dir()
   print_with_id("COPY", "Ok.")
 end
 
+-- This procedure compress the TEMP_FOLDER_PATH
+-- and tests it. If the test fails it returns
+-- false and true otherwise.
+function proc_7z_bck_dir()
+  print_with_id("7z", "Starting compression, this might take a while...")
+  local result_file = local_7z_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
+  print_with_id("7z", "Testing...")
+  local result_test = local_7z_test(result_file)
+
+  for line in string.gmatch(result_test,'[^\r\n]+') do
+    if line == "Everything is Ok" then
+      print_with_id("7z", "Ok.")
+      return true
+    end
+  end
+
+  print_with_id("7z", "An error ocurred while compressing! Please run 7z t " .. result_file .. " to check the errors.")
+  return false
+end
+
 function backup_dir(path_in, path_out)
   local file_name_out = path_out .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
   local function_name = "7z a " .. file_name_out .. " " .. path_in
