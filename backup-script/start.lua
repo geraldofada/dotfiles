@@ -137,7 +137,7 @@ end
 -- This function deletes a file using
 -- del cmd from windows.
 function local_del_file(file)
-  local function_name = "del " .. dir_to_del
+  local function_name = "del " .. file
   prog_handle = io.popen(function_name)
 
   prog_handle:close()
@@ -202,7 +202,7 @@ end
 -- and tests it. If the test fails it returns
 -- false and true (with the final name for the file) otherwise.
 function proc_7z_bck_dir()
-  print_with_id("7z", "Starting compression, this might take a while...")
+  print_with_id("7z", "Compressing " .. TEMP_FOLDER_PATH .. " folder. This might take a while...")
   local result_file = local_7z_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
   print_with_id("7z", "Testing...")
   local result_test = local_7z_test(result_file)
@@ -226,7 +226,7 @@ function proc_check_and_delete(size_limit, cloud_path)
   if cloud_is_on_size_limit(size_limit, cloud_path) then
     print_with_id("WARNING", "Destined cloud doesn't have the necessary size available.")
   else
-    print_with_id("INFO", "Destined cloud has the necessary size. Continuing.")
+    print_with_id("INFO", "Destined cloud has the necessary size. Continuing...")
     return true
   end
 
@@ -251,7 +251,7 @@ end
 -- This procedure is just a wrap for
 -- cloud_upload_file with user msgs.
 function proc_upload_file(file, cloud_path)
-  print_with_id("CLOUD", "Uploading" .. file .. " this might take a while.")
+  print_with_id("CLOUD", "Uploading " .. file .. " this might take a while.")
   cloud_upload_file(file, cloud_path)
   print_with_id("CLOUD", file .. " uploaded with success.")
   print_with_id("CLOUD", "Ok.")
@@ -298,7 +298,7 @@ function print_with_id(id, msg)
   print("["..id.."]" .. " " .. msg)
 end
 
-function main()
+function mainold()
   if check_tools() then
     print("All tools. OK")
   else
@@ -343,6 +343,4 @@ function main()
   end
 end
 
--- main()
-
-print(return_oldest_file("googledrive:Backups/Finance"))
+main()
