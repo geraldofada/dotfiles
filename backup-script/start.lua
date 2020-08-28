@@ -102,6 +102,13 @@ function cloud_delete_file(cloud_path, target)
   prog_handle:close()
 end
 
+-- This function uploads a file to cloud_path
+function cloud_upload_file(file, cloud_path)
+  local function_name = "rclone copy " .. file .. " " .. cloud_path
+  prog_handle = io.popen(function_name)
+  prog_handle:close()
+end
+
 -- This functions copies source to dest
 -- using xcopy cmd from windows.
 -- /r = copy empty folder
