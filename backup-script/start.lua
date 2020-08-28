@@ -94,6 +94,14 @@ function cloud_return_oldest_file(cloud_path)
   return prog_str_handle
 end
 
+-- This function deletes target in cloud_path.
+-- Note that this is only for files not directories.
+function cloud_delete_file(cloud_path, target)
+  prog_handle = io.popen("rclone delete " .. cloud_path .. target)
+  prog_str_handle = prog_handle:read()
+  prog_handle:close()
+end
+
 -- This functions copies source to dest
 -- using xcopy cmd from windows.
 -- /r = copy empty folder
