@@ -245,6 +245,26 @@ function proc_check_and_delete(size_limit, cloud_path)
   end
 end
 
+-- This procedure is just a wrap for
+-- cloud_upload_file with user msgs.
+function proc_upload_file(file, cloud_path)
+  print_with_id("CLOUD", "Uploading" .. file .. " this might take a while.")
+  cloud_upload_file(file, cloud_path)
+  print_with_id("CLOUD", file .. " uploaded with success.")
+  print_with_id("CLOUD", "Ok.")
+end
+
+-- This procedure remove the temp folder
+-- and the compressed file
+function proc_cleanup(dir, file)
+  print_with_id("CLEANUP", "Removing compressed file " .. file)
+  local_del_file(file)
+  print_with_id("CLEANUP", "Removing temp folder " .. dir)
+  local_del_dir(dir)
+
+  print_with_id("CLEANUP", "Ok.")
+end
+
 
 function backup_dir(path_in, path_out)
   local file_name_out = path_out .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
