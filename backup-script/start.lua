@@ -60,7 +60,7 @@ prog_str_handle = nil
 -- This function returns true if the
 -- cloud_path reached the max_bytes size
 -- limit.
-function is_on_size_limit(max_bytes, cloud_path)
+function cloud_is_on_size_limit(max_bytes, cloud_path)
   prog_handle = io.popen("rclone size --json " .. cloud_path)
   prog_str_handle = prog_handle:read()
   local json_value = json.decode(prog_str_handle)
@@ -78,7 +78,7 @@ end
 -- in cloud_path (alphabetical order).
 -- Using a timestamp as a filename the oldest
 -- is the first in this case.
-function return_oldest_file(cloud_path)
+function cloud_return_oldest_file(cloud_path)
   prog_handle = io.popen("rclone lsf " .. cloud_path)
   prog_str_handle = prog_handle:read()
   prog_handle:close()
