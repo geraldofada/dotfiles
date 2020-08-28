@@ -197,7 +197,7 @@ end
 
 -- This procedure compress the TEMP_FOLDER_PATH
 -- and tests it. If the test fails it returns
--- false and true otherwise.
+-- false and true (with the final name for the file) otherwise.
 function proc_7z_bck_dir()
   print_with_id("7z", "Starting compression, this might take a while...")
   local result_file = local_7z_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
@@ -207,7 +207,7 @@ function proc_7z_bck_dir()
   for line in string.gmatch(result_test,'[^\r\n]+') do
     if line == "Everything is Ok" then
       print_with_id("7z", "Ok.")
-      return true
+      return {true, result_file}
     end
   end
 
