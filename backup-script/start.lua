@@ -268,6 +268,37 @@ function proc_cleanup(dir, file)
   print_with_id("CLEANUP", "Ok.")
 end
 
+function main()
+  local result = proc_check_and_delete(SIZE_LIMIT, CLOUD_PATH)
+  if not result then
+    print_with_id("INFO", "Backup cancelled.")
+    return
+  end
+
+  print("\n")
+  print_with_id("INFO", "Copy started...")
+  proc_copy_to_bck_dir()
+
+  print("\n")
+  print_with_id("INFO", "Compression started...")
+  result = proc_7z_bck_dir()
+  if not result then
+    return
+  end
+
+  print("\n")
+  print_with_id("INFO", "Upload started...")
+  proc_upload_file(result[2], CLOUD_PATH)
+
+  print("\n")
+  print_with_id("INFO", "Cleanup started...")
+  proc_cleanup(TEMP_FOLDER_PATH, result[2])
+
+
+  print("\n")
+  print_with_id("DONE", "Everything went ok.")
+end
+
 
 function backup_dir(path_in, path_out)
   local file_name_out = path_out .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
@@ -298,7 +329,7 @@ function print_with_id(id, msg)
   print("["..id.."]" .. " " .. msg)
 end
 
-function mainold()
+function main()
   if check_tools() then
     print("All tools. OK")
   else
