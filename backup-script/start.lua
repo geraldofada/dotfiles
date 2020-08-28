@@ -5,6 +5,36 @@
 -- CONFIG
 --
 SIZE_LIMIT = 10737418240 -- 10GB
+RECRR = {
+  ["notes"] = {
+    fmt_name = "notes"
+    path = "z:/notes/"
+  },
+  ["uff"] = {
+    fmt_name = "uff"
+    path = "z:/uff/"
+  },
+  ["photos"] = {
+    fmt_name = "fotos"
+    path = "d:/backups/fotos/"
+  },
+  ["docs"] = {
+    fmt_name = "documentos"
+    path = "d:/backups/documentos/"
+  },
+  ["games"] = {
+    fmt_name = "jogos"
+    path = "d:/backups/jogos/"
+  },
+  ["books"] = {
+    fmt_name = "livros"
+    path = "d:/calibre/livros/"
+  },
+  ["wallpapers"] = {
+    fmt_name = "wallpapers"
+    path = "d:/backups/wallpapers/"
+  },
+}
 to_backup = {
   ["slipbox"] = {
     path_local = "z:/notes/slipbox",
