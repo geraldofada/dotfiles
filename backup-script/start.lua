@@ -103,8 +103,10 @@ function cloud_delete_file(cloud_path, target)
 end
 
 -- This function uploads a file to cloud_path
+-- using start /wait so the rclone progress can
+-- be showed in a new cmd window.
 function cloud_upload_file(file, cloud_path)
-  local function_name = "rclone copy " .. file .. " " .. cloud_path
+  local function_name = "start /wait rclone copy " .. file .. " " .. cloud_path .. " -P"
   prog_handle = io.popen(function_name)
   prog_handle:close()
 end
@@ -113,8 +115,9 @@ end
 -- using xcopy cmd from windows.
 -- /r = copy empty folder
 -- /i = make sure dest is a folder
+-- /h = copy hidden files
 function local_copy_dir(source, dest)
-  local function_name = "xcopy /e /i " .. source .. " " .. dest
+  local function_name = "xcopy /e /i /h " .. source .. " " .. dest
   prog_handle = io.popen(function_name)
 
   prog_handle:close()
