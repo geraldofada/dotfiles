@@ -95,7 +95,7 @@ function cloud_return_oldest_file(cloud_path)
 end
 
 -- This functions copies source to dest
--- using xcopy cmd from windows
+-- using xcopy cmd from windows.
 -- /r = copy empty folder
 -- /i = make sure dest is a folder
 function local_copy_dir(source, dest)
@@ -106,7 +106,7 @@ function local_copy_dir(source, dest)
 end
 
 -- This function deletes a dir using
--- rmdir cmd from windows
+-- rmdir cmd from windows.
 -- /q = silent mode
 -- /s = remove all dirs and subdirs
 function local_del_dir(dir)
@@ -114,6 +114,32 @@ function local_del_dir(dir)
   prog_handle = io.popen(function_name)
 
   prog_handle:close()
+end
+
+-- This function uses 7zip to compress
+-- the source to dest and spits out a
+-- timestamp to the filename.
+-- It also returns the final name.
+function local_7z_dir(source, dest)
+  local file_name_out = dest .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
+  local function_name = "7z a " .. file_name_out .. " " .. source
+  prog_handle = io.popen(function_name)
+
+  prog_handle:close()
+
+  return file_name_out
+end
+
+-- This functions uses the 7zip test utility
+-- and returns its output.
+function local_7z_test(source)
+  local function_name = "7z t " .. source .. " *"
+  prog_handle = io.popen(function_name)
+  prog_str_handle = prog_handle:read("*a")
+
+  prog_handle:close()
+
+  return prog_str_handle
 end
 
 function check_tools()
@@ -129,11 +155,9 @@ end
 --     is_on_size_limit
 --     if false: just zip everything, add timestamp and up
 --     if true: get oldest, remove it then check again is_on_size_limit
--- TODO(geraldo) cleanup the config part, and figure out how
--- will be the new dir structure.
 
 -- This is a procedure that copies everything
--- in RECRR to TEMP_FOLDER_PATH
+-- in RECRR to TEMP_FOLDER_PATH.
 function proc_copy_to_bck_dir()
   for index, _ in pairs(RECRR) do
     local source = RECRR[index].path .. RECRR[index].dir_name
