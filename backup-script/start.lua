@@ -5,34 +5,42 @@
 -- CONFIG
 --
 SIZE_LIMIT = 10737418240 -- 10GB
+TEMP_FOLDER_PATH = "recurring"
 RECRR = {
   ["notes"] = {
-    fmt_name = "notes",
-    path = "z:/notes/"
+    fmt_name = "Notes",
+    path = "z:\\",
+    dir_name = "notes"
   },
   ["uff"] = {
-    fmt_name = "uff",
-    path = "z:/uff/"
+    fmt_name = "Uff",
+    path = "z:\\",
+    dir_name = "uff"
   },
   ["photos"] = {
-    fmt_name = "fotos",
-    path = "d:/backups/fotos/"
+    fmt_name = "Fotos",
+    path = "d:\\backups\\",
+    dir_name = "fotos"
   },
   ["docs"] = {
-    fmt_name = "documentos",
-    path = "d:/backups/documentos/"
+    fmt_name = "Documentos",
+    path = "d:\\backups\\",
+    dir_name = "documentos"
   },
   ["games"] = {
-    fmt_name = "jogos",
-    path = "d:/backups/jogos/"
+    fmt_name = "Jogos",
+    path = "d:\\backups\\",
+    dir_name = "jogos"
   },
   ["books"] = {
-    fmt_name = "livros",
-    path = "d:/calibre/livros/"
+    fmt_name = "Livros",
+    path = "d:\\calibre\\",
+    dir_name = "livros"
   },
   ["wallpapers"] = {
-    fmt_name = "wallpapers",
-    path = "d:/backups/wallpapers/"
+    fmt_name = "Wallpapers",
+    path = "d:\\backups\\",
+    dir_name = "wallpapers"
   },
 }
 to_backup = {
@@ -88,8 +96,10 @@ end
 
 -- This functions copies source to dest
 -- using xcopy cmd from windows
+-- /r = copy empty folder
+-- /i = make sure dest is a folder
 function local_copy_dir(source, dest)
-  local function_name = "xcopy /E /I " .. source .. " " .. dest
+  local function_name = "xcopy /e /i " .. source .. " " .. dest
   prog_handle = io.popen(function_name)
 
   prog_handle:close()
