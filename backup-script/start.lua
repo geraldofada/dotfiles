@@ -197,6 +197,37 @@ function proc_7z_bck_dir()
   return false
 end
 
+-- This procedure checks the size limit
+-- and asks if you want to delete the oldest
+-- file. It return true if cloud_path has the
+-- necessary size available and false otherwise.
+function proc_check_and_delete(size_limit, cloud_path)
+  if cloud_is_on_size_limit(size_limit, cloud_path) then
+    print_with_id("WARNING", "Destined cloud doesn't have the necessary size available.")
+  else
+    print_with_id("INFO", "Destined cloud has the necessary size. Continuing.")
+    return true
+  end
+
+  local oldest = cloud_return_oldest_file(cloud_path)
+  print_with_id("QUESTION", "Do you want to delete the oldest file (" .. oldest .. ") to continue? [y/n]")
+  local user_input = io.read("*l")
+  while true do
+    if user_input == "y" then
+      print_with_id("INFO", "Deleting " .. oldest)
+      cloud_delete_file(cloud_path, oldest)
+      print_with_id("INFO", oldest .. " deleted with success.")
+      return proc_check_and_delete(size_limit, cloud_path)
+    elseif user_input == "n" then
+      return false
+    else
+      print_with_id("QUESTION", "Please provide a valid answer.")
+      user_input = io.read("*l")
+    end
+  end
+end
+
+
 function backup_dir(path_in, path_out)
   local file_name_out = path_out .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
   local function_name = "7z a " .. file_name_out .. " " .. path_in
