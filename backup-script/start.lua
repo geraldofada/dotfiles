@@ -131,7 +131,20 @@ end
 --     if true: get oldest, remove it then check again is_on_size_limit
 -- TODO(geraldo) cleanup the config part, and figure out how
 -- will be the new dir structure.
--- TODO(geraldo) to finalize, configure rclone to encrypt data
+
+-- This is a procedure that copies everything
+-- in RECRR to TEMP_FOLDER_PATH
+function proc_copy_to_bck_dir()
+  for index, _ in pairs(RECRR) do
+    local source = RECRR[index].path .. RECRR[index].dir_name
+    local dest = TEMP_FOLDER_PATH .. "\\" .. RECRR[index].dir_name
+    local_copy_dir(source, dest)
+    print_with_id("COPY", RECRR[index].fmt_name .. " copied to " .. dest)
+  end
+
+  print_with_id("COPY", "Ok.")
+end
+
 function backup_dir(path_in, path_out)
   local file_name_out = path_out .. os.date("-%Y%m%d-%H%M%S") .. ".7z"
   local function_name = "7z a " .. file_name_out .. " " .. path_in
