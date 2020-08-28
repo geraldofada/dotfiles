@@ -131,6 +131,16 @@ function local_del_dir(dir)
   prog_handle:close()
 end
 
+-- This function deletes a file using
+-- del cmd from windows.
+function local_del_file(file)
+  local function_name = "del " .. dir_to_del
+  prog_handle = io.popen(function_name)
+
+  prog_handle:close()
+end
+
+
 -- This function uses 7zip to compress
 -- the source to dest and spits out a
 -- timestamp to the filename.
@@ -171,7 +181,8 @@ end
 --     if false: just zip everything, add timestamp and up
 --     if true: get oldest, remove it then check again is_on_size_limit
 
--- This is a procedure that copies everything
+
+-- This procedure copies everything
 -- in RECRR to TEMP_FOLDER_PATH.
 function proc_copy_to_bck_dir()
   for index, _ in pairs(RECRR) do
