@@ -86,6 +86,26 @@ function cloud_return_oldest_file(cloud_path)
   return prog_str_handle
 end
 
+-- This functions copies source to dest
+-- using xcopy cmd from windows
+function local_copy_dir(source, dest)
+  local function_name = "xcopy /E /I " .. source .. " " .. dest
+  prog_handle = io.popen(function_name)
+
+  prog_handle:close()
+end
+
+-- This function deletes a dir using
+-- rmdir cmd from windows
+-- /q = silent mode
+-- /s = remove all dirs and subdirs
+function local_del_dir(dir)
+  local function_name = "rd /q /s " .. dir
+  prog_handle = io.popen(function_name)
+
+  prog_handle:close()
+end
+
 function check_tools()
   assert(os.execute("rclone --version"))
   assert(os.execute("7z"))
