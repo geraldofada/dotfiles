@@ -1,11 +1,13 @@
 -- Just a simple script to backup my personal files
 -- Windows only!
---
+
+
 -- =============
 -- CONFIG
---
+-- =============
 SIZE_LIMIT = 10737418240 -- 10GB
 TEMP_FOLDER_PATH = "recurring"
+CLOUD_PATH = "gdrive_crypt_recrr:"
 RECRR = {
   ["notes"] = {
     fmt_name = "Notes",
@@ -58,8 +60,7 @@ to_backup = {
 
 -- =============
 -- CODE
---
-
+-- =============
 json = require "json"
 
 prog_handle = nil
@@ -72,14 +73,13 @@ function cloud_is_on_size_limit(max_bytes, cloud_path)
   prog_handle = io.popen("rclone size --json " .. cloud_path)
   prog_str_handle = prog_handle:read()
   local json_value = json.decode(prog_str_handle)
+  prog_handle:close()
 
   if json_value["bytes"] >= max_bytes then
     return true
   else
     return false
   end
-
-  prog_handle:close()
 end
 
 -- This function returns the first file
