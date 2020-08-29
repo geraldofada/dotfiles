@@ -3,6 +3,12 @@
 
 
 -- =============
+-- ARGS OPTIONS
+-- =============
+-- --copy-only is used to only run
+--             proc_copy_to_bck_dir()
+
+-- =============
 -- CONFIG
 -- =============
 SIZE_LIMIT = 10737418240 -- 10GB
@@ -44,6 +50,11 @@ RECRR = {
     path = "d:\\backups\\",
     dir_name = "wallpapers"
   },
+  ["misc"] = {
+    fmt_name = "Misc",
+    path = "d:\\backups\\",
+    dir_name = "misc"
+  }
 }
 
 -- =============
@@ -275,4 +286,8 @@ function main()
   print_with_id("DONE", "Everything went ok.")
 end
 
-main()
+if arg[1] == "--copy-only" then
+  proc_copy_to_bck_dir()
+else
+  main()
+end
