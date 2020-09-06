@@ -24,7 +24,7 @@
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
 (setq slipbox-path "z:/notes/slipbox/")
-(setq bib-path "y:/googledrive/Backups/slipbox_refs.bib")
+(setq bib-path "z:/notes/slipbox_refs.bib")
 (setq org-directory "z:/notes/agenda/")
 (setq org-agenda-files '("z:/notes/agenda/"))
 
