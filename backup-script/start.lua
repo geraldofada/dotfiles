@@ -15,6 +15,11 @@ SIZE_LIMIT = 10737418240 -- 10GB
 TEMP_FOLDER_PATH = "recurring"
 CLOUD_PATH = "gdrive_crypt_recrr:"
 RECRR = {
+  ["keepass"] = {
+    fmt_name = "KeePass",
+    path = "z:\\",
+    dir_name = "keepass"
+  },
   ["notes"] = {
     fmt_name = "Notes",
     path = "z:\\",
