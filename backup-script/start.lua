@@ -7,6 +7,9 @@
 -- =============
 -- --copy-only is used to only run
 --             proc_copy_to_bck_dir()
+-- --zip-only is used to only run
+--             proc_copy_to_bck_dir()
+--             proc_7z_bck_dir()
 
 -- =============
 -- CONFIG
@@ -293,6 +296,9 @@ end
 
 if arg[1] == "--copy-only" then
   proc_copy_to_bck_dir()
+elseif arg[1] == "--zip-only" then
+  proc_copy_to_bck_dir()
+  proc_7z_bck_dir()
 else
   main()
 end
