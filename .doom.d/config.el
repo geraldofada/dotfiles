@@ -81,6 +81,16 @@
 (setq +latex-viewers '(sumatrapdf))
 
 
+;; Dart + Flutter
+
+(use-package! dart
+  :defer t
+  :init
+  (setq lsp-dart-sdk-dir "z:/devtools/dart/2.9.3")
+  (setq lsp-dart-flutter-sdk-dir "Z:/devtools/flutter/1.20.4")
+)
+
+
 ;; Persist Emacs initial frame
 ;; - source: https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
 (when-let (dims (doom-store-get 'last-frame-size))
