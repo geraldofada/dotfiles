@@ -6,9 +6,9 @@
 -- ARGS OPTIONS
 -- =============
 -- --copy-only is used to only run
---             proc_copy_to_bck_dir()
+--             proc_copy_data_to_bck_dir()
 -- --zip-only is used to only run
---             proc_copy_to_bck_dir()
+--             proc_copy_data_to_bck_dir()
 --             proc_7z_bck_dir()
 
 -- =============
@@ -177,24 +177,25 @@ function local_7z_test(source)
 end
 
 -- This procedure copies everything
--- in RECRR to TEMP_FOLDER_PATH.
-function proc_copy_to_bck_dir()
-  for index, _ in pairs(RECRR) do
-    local source = RECRR[index].path .. RECRR[index].dir_name
-    local dest = TEMP_FOLDER_PATH .. "\\" .. RECRR[index].dir_name
+-- from a data structure like the
+-- RECRR global var to a dest.
+function proc_copy_data_to_bck_dir(data, dest)
+  for index, _ in pairs(data) do
+    local source = data[index].path .. data[index].dir_name
+    local dest = dest .. "\\" .. data[index].dir_name
     local_copy_dir(source, dest)
-    print_with_id("COPY", RECRR[index].fmt_name .. " copied to " .. dest)
+    print_with_id("COPY", data[index].fmt_name .. " copied to " .. dest)
   end
 
   print_with_id("COPY", "Ok.")
 end
 
--- This procedure compress the TEMP_FOLDER_PATH
+-- This procedure compress the source to the dest
 -- and tests it. If the test fails it returns
--- false and true (with the final name for the file) otherwise.
-function proc_7z_bck_dir()
-  print_with_id("7z", "Compressing " .. TEMP_FOLDER_PATH .. " folder. This might take a while...")
-  local result_file = local_7z_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
+-- false, otherwise, true and the final name for the file.
+function proc_7z_bck_dir(source, dest)
+  print_with_id("7z", "Compressing " .. source .. " folder. This might take a while...")
+  local result_file = local_7z_dir(source, dest)
   print_with_id("7z", "Testing...")
   local result_test = local_7z_test(result_file)
 
