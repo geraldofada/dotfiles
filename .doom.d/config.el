@@ -8,7 +8,7 @@
 
 
 ;; Fluffy
-(setq doom-font (font-spec :family "Fira Code" :size 13))
+(setq doom-font (font-spec :family "Fira Code" :size 12))
 (setq doom-theme 'doom-sourcerer)
 (setq display-line-numbers-type nil)
 (setq fancy-splash-image "y:/.doom.d/black-hole.png") ;; change splash art
@@ -88,6 +88,7 @@
   :init
   (setq lsp-dart-sdk-dir "z:/devtools/dart/2.9.3")
   (setq lsp-dart-flutter-sdk-dir "Z:/devtools/flutter/1.20.4")
+  (setq lsp-dart-closing-labels nil)
 )
 
 
