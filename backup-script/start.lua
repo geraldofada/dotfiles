@@ -273,11 +273,11 @@ function main()
 
   print("\n")
   print_with_id("INFO", "Copy started...")
-  proc_copy_to_bck_dir()
+  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
 
   print("\n")
   print_with_id("INFO", "Compression started...")
-  result = proc_7z_bck_dir()
+  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
   if not result then
     return
   end
@@ -296,10 +296,10 @@ function main()
 end
 
 if arg[1] == "--copy-only" then
-  proc_copy_to_bck_dir()
+  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
 elseif arg[1] == "--zip-only" then
-  proc_copy_to_bck_dir()
-  proc_7z_bck_dir()
+  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
+  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
 else
   main()
 end
