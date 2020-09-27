@@ -120,7 +120,7 @@ end
 
 -- This functions copies source to dest
 -- using xcopy cmd from windows.
--- /r = copy empty folder
+-- /e = copy empty folder
 -- /i = make sure dest is a folder
 -- /h = copy hidden files
 function local_copy_dir(source, dest)
@@ -216,9 +216,9 @@ end
 -- necessary size available and false otherwise.
 function proc_check_and_delete(size_limit, cloud_path)
   if cloud_is_on_size_limit(size_limit, cloud_path) then
-    print_with_id("WARNING", "Destined cloud doesn't have the necessary size available.")
+    print_with_id("WARNING", "Target cloud doesn't have the necessary size available.")
   else
-    print_with_id("INFO", "Destined cloud has the necessary size. Continuing...")
+    print_with_id("INFO", "Target cloud has the necessary size. Continuing...")
     return true
   end
 
