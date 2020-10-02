@@ -277,7 +277,7 @@ function main()
 
   print("\n")
   print_with_id("INFO", "Compression started...")
-  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
+  result = proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
   if not result then
     return
   end
