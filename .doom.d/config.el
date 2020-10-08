@@ -61,13 +61,17 @@
     (setq org-ref-default-bibliography (list bib-path))
     (setq org-ref-bibliography-notes (concat slipbox-path "bibnotes.org"))
     (setq org-ref-notes-directory slipbox-path)
-    (setq org-latex-pdf-process
-          '("latexmk -shell-escape -bibtex -pdf %f"))
+    ;; (setq org-latex-pdf-process
+    ;;       '("latexmk -shell-escape -bibtex -pdf %f"))
   )
 
-(map! :after org-ref :map org-roam-mode-map :localleader "m c" #'org-ref-ivy-insert-cite-link)
-(map! :after org-ref :map org-roam-mode-map :localleader "m r" #'org-ref)
-
+(map! :after org
+      :map org-mode-map
+      :localleader
+      :prefix ("m" . "org-roam")
+      "c" #'org-ref-ivy-insert-cite-link
+      "r" #'org-ref
+  )
 
 ;; Ledger mode
 (use-package! ledger
@@ -76,13 +80,20 @@
     (add-to-list 'auto-mode-alist '("\\.\\(h?ledger\\|journal\\|j\\)$" . ledger-mode))
   )
 
-
 ;; Latex
-(setq +latex-viewers '(sumatrapdf))
+(use-package! latex
+  :defer t
+  :init
+    (setq +latex-viewers '(sumatrapdf))
+  )
 
+(map! :after latex
+      :map LaTeX-mode-map
+      :localleader
+      :desc "Compile all and view" "v" #'TeX-command-run-all
+  )
 
 ;; Dart + Flutter
-
 (use-package! dart
   :defer t
   :init
@@ -90,7 +101,6 @@
   (setq lsp-dart-flutter-sdk-dir "Z:/devtools/flutter/1.20.4")
   (setq lsp-dart-closing-labels nil)
 )
-
 
 ;; Persist Emacs initial frame
 ;; - source: https://github.com/hlissner/doom-emacs/blob/develop/docs/api.org#persist-emacs-initial-frame-position-dimensions-andor-full-screen-state-across-sessions
