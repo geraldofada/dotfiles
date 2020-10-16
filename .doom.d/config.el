@@ -24,7 +24,6 @@
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
 (setq slipbox-path "z:/notes/slipbox/")
-(setq bib-path "z:/notes/slipbox_refs.bib")
 (setq org-directory "z:/notes/agenda/")
 (setq org-agenda-files '("z:/notes/agenda/"))
 
@@ -44,33 +43,6 @@
   :defer t
   :init
     (setq deft-directory slipbox-path)
-  )
-
-(use-package! org-ref
-  :after org-roam
-  :init
-    (setq ivy-re-builders-alist
-          '((ivy-bibtex . ivy--regex-ignore-order)
-            (t . ivy--regex-plus)))
-    (setq bibtex-completion-bibliography bib-path)
-    (setq bibtex-completion-notes-path slipbox-path)
-    (setq bibtex-completion-pdf-field "File")
-
-    (setq org-ref-completion-library 'org-ref-ivy-cite)
-    (setq org-ref-get-pdf-filename-function 'org-ref-get-pdf-filename-helm-bibtex)
-    (setq org-ref-default-bibliography (list bib-path))
-    (setq org-ref-bibliography-notes (concat slipbox-path "bibnotes.org"))
-    (setq org-ref-notes-directory slipbox-path)
-    ;; (setq org-latex-pdf-process
-    ;;       '("latexmk -shell-escape -bibtex -pdf %f"))
-  )
-
-(map! :after org
-      :map org-mode-map
-      :localleader
-      :prefix ("m" . "org-roam")
-      "c" #'org-ref-ivy-insert-cite-link
-      "r" #'org-ref
   )
 
 ;; Ledger mode
