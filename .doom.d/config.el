@@ -35,8 +35,8 @@
   :defer t
   :init
     (setq org-roam-directory slipbox-path)
-    (setq org-roam-graph-viewer "C:/Program Files (x86)/Google/Chrome/Application/chrome.exe")
-    (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.45/bin/dot.exe")
+    (setq org-roam-graph-viewer "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe")
+    (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.44.1/bin/dot.exe")
   )
 
 (use-package! deft
