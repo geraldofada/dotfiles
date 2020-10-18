@@ -9,17 +9,20 @@
 
 ;; Fluffy
 (setq doom-font (font-spec :family "Fira Code" :size 12))
-(setq doom-theme 'doom-sourcerer)
+(setq doom-theme 'doom-horizon)
 (setq display-line-numbers-type nil)
 (setq fancy-splash-image "y:/.doom.d/black-hole.png") ;; change splash art
 (global-visual-line-mode t) ;; wrap line
 
 
+;; NOTE: as of 2020-10-17 this seems to be fixed, but i'm not sure so i'll be leaving it in here
 ;; Counsel rg workaround
 ;; - source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
 (after! counsel
   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
 
+;; Avy config
+(setq avy-all-windows t)
 
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
