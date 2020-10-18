@@ -15,11 +15,11 @@
 (global-visual-line-mode t) ;; wrap line
 
 
-;; NOTE: as of 2020-10-17 this seems to be fixed, but i'm not sure so i'll be leaving it in here
+;; NOTE: as of 2020-10-17 this seems to be fixed
 ;; Counsel rg workaround
 ;; - source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
-(after! counsel
-  (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
+;; (after! counsel
+;;   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
 
 ;; Avy config
 (setq avy-all-windows t)
