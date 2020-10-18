@@ -119,12 +119,14 @@ function cloud_upload_file(file, cloud_path)
 end
 
 -- This functions copies source to dest
--- using xcopy cmd from windows.
--- /e = copy empty folder
--- /i = make sure dest is a folder
--- /h = copy hidden files
+-- using robocopy cmd from windows.
+--          /e = copy empty folder
+-- /copy:DATSO = copy everything, excluding audit info
+--
+-- NOTE(Geraldo): For christ's sake robocopy... I had to go to every single
+--                folder listed on RECRR and give permissions for this to work
 function local_copy_dir(source, dest)
-  local function_name = "xcopy /e /i /h " .. source .. " " .. dest
+  local function_name = "robocopy " .. source .. " " .. dest .. " *.* /e /copy:DATSO"
   prog_handle = io.popen(function_name)
 
   prog_handle:close()
