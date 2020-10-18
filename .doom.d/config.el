@@ -26,7 +26,7 @@
 
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
-(setq slipbox-path "z:/notes/slipbox/")
+(setq slipbox-path "c:/shitnstuff/notes/slipbox/")
 (setq org-directory "z:/notes/agenda/")
 (setq org-agenda-files '("z:/notes/agenda/"))
 
@@ -40,6 +40,16 @@
     (setq org-roam-directory slipbox-path)
     (setq org-roam-graph-viewer "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe")
     (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.44.1/bin/dot.exe")
+    ;; filetags to the head
+    (setq org-roam-capture-templates
+          '(("d" "default" plain (function org-roam--capture-get-point)
+                "%?"
+                :file-name "%<%Y%m%d%H%M%S>-${slug}"
+                :head "#+title: ${title}\n#+filetags: "
+                :unnarrowed t))
+    )
+    ;; (remove-hook 'org-roam-title-change-hook 'org-roam--update-links-on-title-change)
+    ;; (remove-hook 'org-roam-title-change-hook 'org-roam--update-file-name-on-title-change)
   )
 
 (use-package! deft
