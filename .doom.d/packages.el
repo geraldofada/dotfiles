@@ -39,7 +39,7 @@
 
 ;; Use `:pin' to specify a particular commit to install.
 ;(package! builtin-package :pin "1a2b3c4d5e")
-(package! org-roam :pin "a0c4abf579af77543648708d45e5d3e16f3e83ef")
+;;(package! org-roam :pin "a0c4abf579af77543648708d45e5d3e16f3e83ef")
 
 ;; (package! org-roam-bibtex :pin "b0e2c23a590ad09120960f39353c4c6f879a97b4")
 ;; Doom's packages are pinned to a specific commit and updated from release to
