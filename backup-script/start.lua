@@ -14,57 +14,77 @@
 -- =============
 -- CONFIG
 -- =============
-SIZE_LIMIT = 10737418240 -- 10GB
-TEMP_FOLDER_PATH = "recurring"
-CLOUD_PATH = "gdrive_crypt_recrr:"
-RECRR = {
+SIZE_LIMIT_WEEKLY = 10737418240 -- 10GB
+TEMP_FOLDER_PATH_WEEKLY = "weekly"
+CLOUD_PATH_WEEKLY = "drive_weekly:"
+
+SIZE_LIMIT_DAILY =  1073741824 -- 1GB
+TEMP_FOLDER_PATH_DAILY = "daily"
+CLOUD_PATH_DAILY = "drive_daily:"
+
+C_PATH = "c:\\"
+D_PATH = "d:\\"
+
+WEEKLY = {
   ["keepass"] = {
     fmt_name = "KeePass",
-    path = "z:\\",
+    path = C_PATH,
     dir_name = "keepass"
   },
   ["notes"] = {
     fmt_name = "Notes",
-    path = "z:\\",
+    path = C_PATH,
     dir_name = "notes"
   },
   ["uff"] = {
     fmt_name = "Uff",
-    path = "z:\\",
+    path = C_PATH,
     dir_name = "uff"
   },
   ["photos"] = {
     fmt_name = "Fotos",
-    path = "d:\\backups\\",
+    path = D_PATH + "backups\\"
     dir_name = "fotos"
   },
   ["docs"] = {
     fmt_name = "Documentos",
-    path = "d:\\backups\\",
+    path = D_PATH + "backups\\"
     dir_name = "documentos"
   },
   ["games"] = {
     fmt_name = "Jogos",
-    path = "d:\\backups\\",
+    path = D_PATH + "backups\\"
     dir_name = "jogos"
   },
   ["books"] = {
     fmt_name = "Livros",
-    path = "d:\\calibre\\",
+    path = D_PATH + "calibre\\"
     dir_name = "livros"
   },
   ["wallpapers"] = {
     fmt_name = "Wallpapers",
-    path = "d:\\backups\\",
+    path = D_PATH + "backups\\"
     dir_name = "wallpapers"
   },
   ["misc"] = {
     fmt_name = "Misc",
-    path = "d:\\backups\\",
+    path = D_PATH + "backups\\"
     dir_name = "misc"
   }
 }
 
+DAILY = {
+  ["keepass"] = {
+    fmt_name = "KeePass",
+    path = C_PATH,
+    dir_name = "keepass"
+  },
+  ["notes"] = {
+    fmt_name = "Notes",
+    path = C_PATH,
+    dir_name = "notes"
+  },
+}
 -- =============
 -- CODE
 -- =============
