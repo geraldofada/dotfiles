@@ -286,8 +286,8 @@ function print_with_id(id, msg)
   print("["..id.."]" .. " " .. msg)
 end
 
-function main()
-  local result = proc_check_and_delete(SIZE_LIMIT_WEEKLY, CLOUD_PATH_WEEKLY)
+function cmd_run_all(temp_path, cloud_path, size_limit, folders_struct)
+  local result = proc_check_and_delete(size_limit, cloud_path)
   if not result then
     print_with_id("INFO", "Backup cancelled.")
     return
@@ -295,33 +295,74 @@ function main()
 
   print("\n")
   print_with_id("INFO", "Copy started...")
-  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
+  proc_copy_data_to_bck_dir(folders_struct, temp_path)
 
   print("\n")
   print_with_id("INFO", "Compression started...")
-  result = proc_7z_bck_dir(TEMP_FOLDER_PATH_WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
+  result = proc_7z_bck_dir(temp_path, temp_path)
   if not result then
     return
   end
 
   print("\n")
   print_with_id("INFO", "Upload started...")
-  proc_upload_file(result[2], CLOUD_PATH_WEEKLY)
+  proc_upload_file(result[2], cloud_path)
 
   print("\n")
   print_with_id("INFO", "Cleanup started...")
-  proc_cleanup(TEMP_FOLDER_PATH_WEEKLY, result[2])
-
+  proc_cleanup(temp_path, result[2])
 
   print("\n")
   print_with_id("DONE", "Everything went ok.")
 end
 
-if arg[1] == "--copy-only" then
-  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
-elseif arg[1] == "--zip-only" then
-  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
-  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH_WEEKLY)
+function cmd_copy_only(temp_path, folders_struct)
+  print_with_id("INFO", "Copy started...")
+  proc_copy_data_to_bck_dir(folders_struct, temp_path)
+
+  print("\n")
+  print_with_id("DONE", "Everything went ok.")
+end
+
+function cmd_zip_only(temp_path, folders_struct)
+  print_with_id("INFO", "Copy started...")
+  proc_copy_data_to_bck_dir(folders_struct, temp_path)
+
+  print("\n")
+  print_with_id("INFO", "Compression started...")
+  proc_7z_bck_dir(temp_path, temp_path)
+
+  print("\n")
+  print_with_id("DONE", "Everything went ok.")
+end
+
+
+if arg[1] == "-w" then
+  if arg[2] == "--copy-only" then
+    cmd_copy_only(TEMP_FOLDER_PATH_WEEKLY, WEEKLY)
+  elseif arg[2] == "--zip-only" then
+    cmd_zip_only(TEMP_FOLDER_PATH_WEEKLY, WEEKLY)
+  else
+    cmd_run_all(TEMP_FOLDER_PATH_WEEKLY,
+                CLOUD_PATH_WEEKLY,
+                SIZE_LIMIT_WEEKLY,
+                WEEKLY
+    )
+  end
+
+elseif arg[1] == "-d" then
+  if arg[2] == "--copy-only" then
+    cmd_copy_only(TEMP_FOLDER_PATH_DAILY, DAILY)
+  elseif arg[2] == "--zip-only" then
+    cmd_zip_only(TEMP_FOLDER_PATH_DAILY, DAILY)
+  else
+    cmd_run_all(TEMP_FOLDER_PATH_DAILY,
+                CLOUD_PATH_DAILY,
+                SIZE_LIMIT_DAILY,
+                DAILY
+    )
+  end
+
 else
-  main()
+  print_with_id("INFO", "Please select -d for daily or -w for weekly")
 end
