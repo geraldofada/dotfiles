@@ -144,7 +144,7 @@ end
 -- /copy:DATSO = copy everything, excluding audit info
 --
 -- NOTE(Geraldo): For christ's sake robocopy... I had to go to every single
---                folder listed on RECRR and give permissions for this to work
+--                folder listed on WEEKLY and DAILY and give permissions for this to work
 function local_copy_dir(source, dest)
   local function_name = "robocopy " .. source .. " " .. dest .. " *.* /e /copy:DATSO"
   prog_handle = io.popen(function_name)
@@ -200,7 +200,7 @@ end
 
 -- This procedure copies everything
 -- from a data structure like the
--- RECRR global var to a dest.
+-- WEEKLY global var to a dest.
 function proc_copy_data_to_bck_dir(data, dest)
   for index, _ in pairs(data) do
     local source = data[index].path .. data[index].dir_name
@@ -287,7 +287,7 @@ function print_with_id(id, msg)
 end
 
 function main()
-  local result = proc_check_and_delete(SIZE_LIMIT, CLOUD_PATH)
+  local result = proc_check_and_delete(SIZE_LIMIT_WEEKLY, CLOUD_PATH_WEEKLY)
   if not result then
     print_with_id("INFO", "Backup cancelled.")
     return
@@ -295,22 +295,22 @@ function main()
 
   print("\n")
   print_with_id("INFO", "Copy started...")
-  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
+  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
 
   print("\n")
   print_with_id("INFO", "Compression started...")
-  result = proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
+  result = proc_7z_bck_dir(TEMP_FOLDER_PATH_WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
   if not result then
     return
   end
 
   print("\n")
   print_with_id("INFO", "Upload started...")
-  proc_upload_file(result[2], CLOUD_PATH)
+  proc_upload_file(result[2], CLOUD_PATH_WEEKLY)
 
   print("\n")
   print_with_id("INFO", "Cleanup started...")
-  proc_cleanup(TEMP_FOLDER_PATH, result[2])
+  proc_cleanup(TEMP_FOLDER_PATH_WEEKLY, result[2])
 
 
   print("\n")
@@ -318,10 +318,10 @@ function main()
 end
 
 if arg[1] == "--copy-only" then
-  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
+  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
 elseif arg[1] == "--zip-only" then
-  proc_copy_data_to_bck_dir(RECRR, TEMP_FOLDER_PATH)
-  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH)
+  proc_copy_data_to_bck_dir(WEEKLY, TEMP_FOLDER_PATH_WEEKLY)
+  proc_7z_bck_dir(TEMP_FOLDER_PATH, TEMP_FOLDER_PATH_WEEKLY)
 else
   main()
 end
