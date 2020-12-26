@@ -43,32 +43,32 @@ WEEKLY = {
   },
   ["photos"] = {
     fmt_name = "Fotos",
-    path = D_PATH + "backups\\"
+    path = D_PATH .. "backups\\",
     dir_name = "fotos"
   },
   ["docs"] = {
     fmt_name = "Documentos",
-    path = D_PATH + "backups\\"
+    path = D_PATH .. "backups\\",
     dir_name = "documentos"
   },
   ["games"] = {
     fmt_name = "Jogos",
-    path = D_PATH + "backups\\"
+    path = D_PATH .. "backups\\",
     dir_name = "jogos"
   },
   ["books"] = {
     fmt_name = "Livros",
-    path = D_PATH + "calibre\\"
+    path = D_PATH .. "calibre\\",
     dir_name = "livros"
   },
   ["wallpapers"] = {
     fmt_name = "Wallpapers",
-    path = D_PATH + "backups\\"
+    path = D_PATH .. "backups\\",
     dir_name = "wallpapers"
   },
   ["misc"] = {
     fmt_name = "Misc",
-    path = D_PATH + "backups\\"
+    path = D_PATH .. "backups\\",
     dir_name = "misc"
   }
 }
@@ -83,7 +83,7 @@ DAILY = {
     fmt_name = "Notes",
     path = C_PATH,
     dir_name = "notes"
-  },
+  }
 }
 -- =============
 -- CODE
