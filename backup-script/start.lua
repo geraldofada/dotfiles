@@ -28,17 +28,17 @@ D_PATH = "d:\\"
 WEEKLY = {
   ["keepass"] = {
     fmt_name = "KeePass",
-    path = C_PATH,
+    path = C_PATH .. "ohno\\",
     dir_name = "keepass"
   },
   ["notes"] = {
     fmt_name = "Notes",
-    path = C_PATH,
+    path = C_PATH .. "ohno\\",
     dir_name = "notes"
   },
   ["uff"] = {
     fmt_name = "Uff",
-    path = C_PATH,
+    path = C_PATH .. "ohno\\",
     dir_name = "uff"
   },
   ["photos"] = {
@@ -76,12 +76,12 @@ WEEKLY = {
 DAILY = {
   ["keepass"] = {
     fmt_name = "KeePass",
-    path = C_PATH,
+    path = C_PATH .. "ohno\\",
     dir_name = "keepass"
   },
   ["notes"] = {
     fmt_name = "Notes",
-    path = C_PATH,
+    path = C_PATH .. "ohno\\",
     dir_name = "notes"
   }
 }
