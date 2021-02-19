@@ -32,6 +32,8 @@
 
 (after! org
   (setq org-superstar-headline-bullets-list nil)
+  (setq org-log-done 'time)
+  (setq org-agenda-start-with-log-mode t)
   )
 
 (use-package! org-roam
