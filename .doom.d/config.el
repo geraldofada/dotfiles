@@ -11,7 +11,7 @@
 (setq doom-font (font-spec :family "Fira Code" :size 12))
 (setq doom-theme 'doom-horizon)
 (setq display-line-numbers-type nil)
-(setq fancy-splash-image "c:/users/geraldofada/.doom.d/black-hole.png") ;; change splash art
+(setq fancy-splash-image "~/.doom.d/black-hole.png") ;; change splash art
 (global-visual-line-mode t) ;; wrap line
 
 
@@ -26,9 +26,9 @@
 
 ;; Org mode config
 ;; NOTE: z (work) and y (home) drives are specified using subst on windows
-(setq slipbox-path "c:/ohno/notes/slipbox/")
-(setq org-directory "c:/ohno/notes/agenda/")
-(setq org-agenda-files '("c:/ohno/notes/agenda/"))
+(setq slipbox-path "~/notes/slipbox/")
+(setq org-directory "~/notes/agenda/")
+(setq org-agenda-files '("~/notes/agenda/"))
 
 (after! org
   (setq org-superstar-headline-bullets-list nil)
@@ -40,8 +40,8 @@
   :defer t
   :init
     (setq org-roam-directory slipbox-path)
-    (setq org-roam-graph-viewer "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe")
-    (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.44.1/bin/dot.exe")
+    ;; (setq org-roam-graph-viewer "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe")
+    ;; (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.44.1/bin/dot.exe")
     ;; filetags to the head
     (setq org-roam-capture-templates
           '(("d" "default" plain (function org-roam--capture-get-point)
