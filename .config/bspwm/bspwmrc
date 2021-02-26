@@ -4,6 +4,7 @@ picom --experimental-backends &
 $HOME/.fehbg &
 $HOME/.config/polybar/launch.sh
 sxhkd &
+udiskie --no-notify &
 
 bspc monitor -d I II III IV V VI VII VIII IX X
 
