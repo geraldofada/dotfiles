@@ -27,7 +27,7 @@ line-color = #f00
 ; border-color = #00000000
 
 padding-left = 0
-padding-right = 5
+padding-right = 2
 
 module-margin-left = 1
 module-margin-right = 2
@@ -40,7 +40,7 @@ modules-left = bspwm
 modules-right = date
 
 tray-position = right
-tray-padding = 2
+tray-padding = 10
 ;tray-background = #0063ff
 
 override-redirect = true
