@@ -1,14 +1,10 @@
 [colors]
 ;background = ${xrdb:color0:#222}
-background = #B316161C
+background = #B31c1e26
 background-alt = #B36c6f93
 ;foreground = ${xrdb:color7:#222}
-foreground = #FDF0ED
-foreground-alt = #fac29a
-
-primary = #B877DB
-secondary = #e60053
-alert = #bd2c40
+foreground = #e0e0e0
+foreground-alt = #fab795
 
 [bar/main]
 ;monitor = ${env:MONITOR:HDMI-1}
@@ -30,7 +26,7 @@ padding-left = 0
 padding-right = 2
 
 module-margin-left = 1
-module-margin-right = 2
+module-margin-right = 1
 
 font-0 = Fira Code:size=9:style=Light;2
 font-1 = siji:pixelsize=10;1
