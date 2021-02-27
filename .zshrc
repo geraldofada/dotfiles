@@ -37,8 +37,9 @@ echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
 # Aliases
-alias ls="ls --color=auto"
-alias ll="ls -la"
+alias ls="exa"
+alias ll="exa -la"
+alias lla="exa -l"
 alias bg="feh --bg-scale"
 alias mbs="hledger bs --forecast -M"
 alias mis="hledger is -M"
