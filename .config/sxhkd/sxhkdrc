@@ -18,6 +18,11 @@ super + u
 super + Escape
 	pkill -USR1 -x sxhkd
 
+# takes a screenshot with selection or the whole screen
+# save it or not
+Print + {_, super} + {_, shift}
+	maim {-s,_} -u -m 10 {_, | tee ~/screenshots/"$(date +%Y%m%d-%H%M%S).png"} | xclip -selection clipboard -t image/png
+
 #
 # bspwm hotkeys
 #
