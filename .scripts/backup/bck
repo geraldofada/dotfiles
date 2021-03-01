@@ -1,0 +1,87 @@
+#! /bin/dash
+# set -eu
+
+case "$1" in
+    "-w")
+        temp_dest="${HOME}/weekly"
+        cloud_dest="drive_weekly:"
+        max_size=10737418240 #10GB
+        folder_name="weekly"
+    ;;
+    "-d")
+        temp_dest="${HOME}/daily"
+        cloud_dest="drive_daily:"
+        max_size=1073741824 #1GB
+        folder_name="daily"
+    ;;
+    *)
+        echo "Please specify if it is daily or weekly"
+        exit
+    ;;
+esac
+
+if [ "$2" != "-co" ]; then
+echo "Checking available size..."
+cloud_size=$(rclone size --json "${cloud_dest}" | jq .bytes)
+while [ "${cloud_size}" -gt "${max_size}" ]; do
+    oldest_file=$(rclone lsf "${cloud_dest}" | head -n 1)
+    echo "Cloud doesn't have the necessary space available"
+    echo "Remove the oldest file: ${oldest_file}? [yes?]"
+    read -r resp
+    case $resp in
+        "yes")
+            echo "Removing ${oldest_file}"
+            rclone delete "${cloud_dest}${oldest_file}"
+            cloud_size=$(rclone size --json "${cloud_dest}" | jq .bytes)
+        ;;
+        *)
+            echo "Aborting..."
+            exit
+        ;;
+    esac
+done
+echo "Ok."
+fi
+
+echo "Copying files to ${temp_dest}"
+mkdir "${temp_dest}"
+alias copy="cp -R -L --preserve=all"
+if [ "$1" = "-w" ]; then
+    copy "${HOME}/keepass"            "${temp_dest}"
+    copy "${HOME}/notes"              "${temp_dest}"
+    copy "${HOME}/uff"                "${temp_dest}"
+    copy "${HOME}/books"              "${temp_dest}"
+    copy "${HOME}/wallpapers"         "${temp_dest}"
+    copy "${HOME}/backups/fotos"      "${temp_dest}"
+    copy "${HOME}/backups/documentos" "${temp_dest}"
+    copy "${HOME}/backups/misc"       "${temp_dest}"
+
+    echo "One folder needs permision to mount."
+    doas mount /dev/sdb1 /mnt
+    doas cp -R -L --preserve=all /mnt/bck_jogos "${temp_dest}"
+    doas umount /mnt
+
+elif [ "$1" = "-d" ]; then
+    copy "${HOME}"/notes              "${temp_dest}"
+    copy "${HOME}"/keepass            "${temp_dest}"
+fi
+echo "Ok."
+
+tar_name="${temp_dest}-$(date +%Y%m%d-%H%M%S).tar"
+echo "Archiving to ${tar_name}"
+tar -cf "${tar_name}" -C "${HOME}" "${folder_name}" >/dev/null 2>&1
+echo "Ok."
+
+echo "Compressing ${tar_name} with lz4."
+lz4 "${tar_name}"
+echo "Ok."
+
+[ "$2" != "-co" ] && echo "Starting upload to cloud." && rclone copy "${tar_name}.lz4" "${cloud_dest}" -P && echo "Ok."
+
+echo "Cleaning up."
+echo "Removing ${temp_dest}"
+rm -rf "${temp_dest}"
+echo "Removing ${tar_name}"
+rm -rf "${tar_name}"
+[ "$2" != "-co" ] && echo "Removing ${tar_name}.lz4" && rm -rf "${tar_name}.lz4"
+echo "Ok."
