@@ -49,3 +49,4 @@ alias pdf="zathura"
 
 # ENV VARS
 export LEDGER_FILE="$HOME/notes/finance/2021.journal"
+export PATH="$PATH:$HOME/.local/bin"
