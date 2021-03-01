@@ -25,10 +25,16 @@
 (setq avy-all-windows t)
 
 ;; Org mode config
-;; NOTE: z (work) and y (home) drives are specified using subst on windows
 (setq slipbox-path "~/notes/slipbox/")
 (setq org-directory "~/notes/agenda/")
 (setq org-agenda-files '("~/notes/agenda/"))
+
+(setq calendar-week-start-day 0
+          calendar-day-name-array ["Domingo" "Segunda" "Terça" "Quarta"
+                                   "Quinta" "Sexta" "Sábado"]
+          calendar-month-name-array ["Janeiro" "Fevereiro" "Março" "Abril"
+                                     "Maio" "Junho" "Julho" "Agosto"
+                                     "Setembro" "Outubro" "Novembro" "Dezembro"])
 
 (after! org
   (setq org-superstar-headline-bullets-list nil)
