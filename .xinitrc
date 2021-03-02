@@ -33,4 +33,8 @@ if [ -d /etc/X11/xinit/xinitrc.d ] ; then
 fi
 
 xsetroot -cursor_name left_ptr
+xrandr --newmode "1920x1080_75.00"  220.75  1920 2064 2264 2608  1080 1083 1088 1130 -hsync +vsync
+xrandr --addmode DisplayPort-1 1920x1080_75.00
+xrandr --output DisplayPort-1 --mode 1920x1080_75.00
+
 exec bspwm

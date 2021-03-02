@@ -69,7 +69,7 @@ label-empty-padding = 2
 type = custom/script
 interval = 1
 format = <label>
-exec = python ~/tools/polybar-spotify/spotify_status.py -q -p ',' --playpause-font=1
+exec = python ~/tools/polybar-spotify/spotify_status.py -q -t 55 -p ',' --playpause-font=1
 ; format-prefix = "aaa"
 ; format-underline = #1db954
 
