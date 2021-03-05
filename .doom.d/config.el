@@ -8,7 +8,7 @@
 
 
 ;; Fluffy
-(setq doom-font (font-spec :family "Fira Code" :size 12))
+(setq doom-font (font-spec :family "JetBrains Mono" :size 13 ))
 (setq doom-theme 'doom-horizon)
 (setq display-line-numbers-type nil)
 (setq fancy-splash-image "~/.doom.d/black-hole.png") ;; change splash art
