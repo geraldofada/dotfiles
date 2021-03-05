@@ -8,11 +8,11 @@ super + Return
 
 # program launcher
 super + @space
-	rofi -show drun
+	rofi -show drun -display-drun "Run:"
 
 # show open windows
 super + u
-	rofi -show window
+	rofi -show window -display-window "Window:"
 
 # make sxhkd reload its configuration files:
 super + Escape
