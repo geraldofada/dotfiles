@@ -1,6 +1,6 @@
 * {
     red:                         rgba ( 233, 60, 88, 100 % );
-    blue:                        rgba ( 223, 82, 115, 100 % );
+    blue:                        rgba ( 250, 183, 149, 100 % );
     lightfg:                     rgba ( 220, 223, 228, 100 % );
     lightbg:                     rgba ( 35, 37, 48, 100 % );
     foreground:                  rgba ( 203, 206, 208, 100 % );
