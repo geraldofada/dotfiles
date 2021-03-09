@@ -23,6 +23,10 @@ super + Escape
 {_, super} + {_, shift} + Print
 	maim {-s,_} -u -m 10 {_, | tee ~/screenshots/"$(date +%Y%m%d-%H%M%S).png"} | xclip -selection clipboard -t image/png
 
+# lock screen with betterlockscreen
+super + alt + x
+	betterlockscreen -l blur -t "Digite a senha..."
+
 #
 # bspwm hotkeys
 #
