@@ -1,0 +1,4 @@
+#!/bin/bash
+
+# https://wiki.archlinux.org/index.php/Rsync#Full_system_backup
+doas rsync -aAXHv --exclude={"/dev/*","/proc/*","/sys/*","/tmp/*","/run/*","/mnt/*","/media/*","/lost+found","/hdd/*","/home/*/.cache/mozilla/*","/home/*/.cache/spotify/*"} / /hdd/seagate500/sysrestore/"$(date +%Y%m%d-%H%M%S)"
