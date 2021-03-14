@@ -85,3 +85,8 @@
       :localleader
       :desc "Compile all and view" "v" #'TeX-command-run-all
   )
+
+;; Neuron mode
+;; https://github.com/felko/neuron-mode
+
+(setq neuron-default-zettelkasten-directory "~/notes/zettelkasten")
