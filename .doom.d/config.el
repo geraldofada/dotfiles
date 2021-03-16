@@ -54,8 +54,8 @@
                 :head "#+title: ${title}\n#+date: %<%Y-%m-%d %H:%M:%S>\n#+filetags: "
                 :unnarrowed t))
     )
-    ;; (remove-hook 'org-roam-title-change-hook 'org-roam--update-links-on-title-change)
-    ;; (remove-hook 'org-roam-title-change-hook 'org-roam--update-file-name-on-title-change)
+    (setq org-roam-tag-sources '(vanilla))
+    (setq org-roam-db-update-method 'immediate)
   )
 
 (use-package! deft
