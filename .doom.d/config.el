@@ -46,14 +46,12 @@
   :defer t
   :init
     (setq org-roam-directory slipbox-path)
-    ;; (setq org-roam-graph-viewer "C:/Program Files/BraveSoftware/Brave-Browser/Application/brave.exe")
-    ;; (setq org-roam-graph-executable "C:/Program Files/Graphviz/2.44.1/bin/dot.exe")
     ;; filetags to the head
     (setq org-roam-capture-templates
           '(("d" "default" plain (function org-roam--capture-get-point)
                 "%?"
-                :file-name "%<%Y%m%d%H%M%S>-${slug}"
-                :head "#+title: ${title}\n#+filetags: "
+                :file-name "%<%Y%m%d%H%M%S>"
+                :head "#+title: ${title}\n#+date: %<%Y-%m-%d %H:%M:%S>\n#+filetags: "
                 :unnarrowed t))
     )
     ;; (remove-hook 'org-roam-title-change-hook 'org-roam--update-links-on-title-change)
@@ -85,8 +83,3 @@
       :localleader
       :desc "Compile all and view" "v" #'TeX-command-run-all
   )
-
-;; Neuron mode
-;; https://github.com/felko/neuron-mode
-
-(setq neuron-default-zettelkasten-directory "~/notes/zettelkasten")
