@@ -19,9 +19,6 @@ foreground = ${colors.foreground}
 line-size = 3
 line-color = #f00
 
-; border-size = 0
-; border-color = #00000000
-
 padding-left = 0
 padding-right = 2
 
@@ -37,7 +34,6 @@ modules-right = date eth
 
 tray-position = right
 tray-padding = 10
-;tray-background = #0063ff
 
 override-redirect = true
 wm-restack = bspwm
