@@ -14,12 +14,10 @@
 (setq fancy-splash-image "~/.doom.d/black-hole.png") ;; change splash art
 (global-visual-line-mode t) ;; wrap line
 
-
-;; NOTE: as of 2020-10-17 this seems to be fixed
-;; Counsel rg workaround
-;; - source: https://github.com/hlissner/doom-emacs/issues/3215#issuecomment-641575701
-;; (after! counsel
-;;   (setq counsel-rg-base-command "rg -M 240 --with-filename --no-heading --line-number --color never %s --path-separator / ."))
+;; C lang config
+(after! ccls
+  (setq ccls-initialization-options '(:index (:comments 2) :completion (:detailedLabel t)))
+  (set-lsp-priority! 'ccls 2)) ; optional as ccls is the default in Doom
 
 ;; Avy config
 (setq avy-all-windows t)
