@@ -1,0 +1,9 @@
+[Default Applications]
+x-scheme-handler/tg=userapp-Telegram Desktop-AC6MZ0.desktop
+application/lrf=calibre-lrfviewer.desktop
+
+[Added Associations]
+x-scheme-handler/tg=userapp-Telegram Desktop-AC6MZ0.desktop;
+
+[Default Applications]
+application/pdf=org.pwmt.zathura.desktop
