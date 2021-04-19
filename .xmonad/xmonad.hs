@@ -1,6 +1,5 @@
 -- Base
 import XMonad
-import System.IO (hPutStrLn)
 import System.Exit (exitSuccess)
 import qualified XMonad.StackSet as W
 
@@ -17,7 +16,6 @@ import Data.Monoid
 import qualified Data.Map as M
 
 -- Hooks
-import XMonad.Hooks.DynamicLog (dynamicLogWithPP, wrap, xmobarPP, xmobarColor, shorten, PP(..))
 import XMonad.Hooks.EwmhDesktops  -- for some fullscreen events, also for xcomposite in obs.
 import XMonad.Hooks.ManageDocks (avoidStruts, docksEventHook, manageDocks, ToggleStruts(..))
 import XMonad.Hooks.ManageHelpers (isFullscreen, doFullFloat)
@@ -45,7 +43,6 @@ import qualified XMonad.Layout.MultiToggle as MT (Toggle(..))
 
    -- Utilities
 import XMonad.Util.EZConfig (additionalKeysP)
-import XMonad.Util.Run (spawnPipe)
 import XMonad.Util.SpawnOnce
 
 myFont :: String
@@ -75,13 +72,11 @@ myNormColor   = myBG
 myFocusColor :: String
 myFocusColor  = myFG
 
-windowCount :: X (Maybe String)
-windowCount = gets $ Just . show . length . W.integrate' . W.stack . W.workspace . W.current . windowset
-
 myStartupHook :: X ()
 myStartupHook = do
         spawnOnce "picom --experimental-backends &"
         spawnOnce "${HOME}/.fehbg &"
+        spawnOnce "${HOME}/.config/polybar/launch.sh"
         spawnOnce "udiskie --no-notify &"
 
 --Makes setting the spacingRaw simpler to write. The spacingRaw module adds a configurable amount of space around windows.
@@ -125,10 +120,6 @@ myLayoutHook =
         mkToggle (single NBFULL) tall ||| magnify
 
 myWorkspaces = [" I ", " II ", " III ", " IV ", " V ", " VI ", " VII ", " VIII ", " IX "]
-myWorkspaceIndices = M.fromList $ zipWith (,) myWorkspaces [1..] -- (,) == \x y -> (x,y)
-
-clickable ws = "<action=xdotool key super+"++show i++">"++ws++"</action>"
-        where i = fromJust $ M.lookup ws myWorkspaceIndices
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
 myManageHook = composeAll
@@ -231,9 +222,6 @@ myKeys =
 
 main :: IO ()
 main = do
-        -- launch xmobar
-        xmproc <- spawnPipe "xmobar -x 0 ${HOME}/.config/xmobar/xmobarrc"
-
         xmonad $ ewmh def
                 {
                 manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks,
@@ -250,25 +238,5 @@ main = do
                 normalBorderColor = myNormColor,
                 focusedBorderColor = myFocusColor,
                 focusFollowsMouse = False,
-                logHook = dynamicLogWithPP $ xmobarPP
-                        {
-                        ppOutput = \x -> hPutStrLn xmproc x,
-                        -- Current workspace in xmobar
-                        ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]",
-                        -- Visible but not current workspace
-                        ppVisible = xmobarColor "#98be65" "" . clickable,
-                        -- Hidden workspaces in xmobar
-                        ppHidden = xmobarColor "#82AAFF" "" . wrap "*" "" . clickable,
-                        -- Hidden workspaces (no windows)
-                        ppHiddenNoWindows = xmobarColor "#c792ea" ""  . clickable,
-                        -- Title of active window in xmobar
-                        ppTitle = xmobarColor "#b3afc2" "" . shorten 60,
-                        -- Separators in xmobar
-                        ppSep =  "<fc=#666666> | </fc>",
-                        -- Urgent workspace
-                        ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!",
-                        -- # of windows current workspace
-                        ppExtras  = [windowCount],
-                        ppOrder  = \(ws:l:t:ex) -> [ws,l]++ex++[t]
-                        }
+                logHook = ewmhDesktopsLogHook
                 } `additionalKeysP` myKeys
