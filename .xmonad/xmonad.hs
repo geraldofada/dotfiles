@@ -89,10 +89,14 @@ mySpacing :: Integer -> l a -> XMonad.Layout.LayoutModifier.ModifiedLayout Spaci
 mySpacing i = spacingRaw False (Border i i i i) True (Border i i i i) True
 
 tall = renamed [Replace "tall"] $
+        addTabs shrinkText myTabTheme $
+        subLayout [] (Simplest) $
         mySpacing 5 $
         ResizableTall 1 (3/100) (1/2) []
 
 magnify = renamed [Replace "magnify"] $
+        addTabs shrinkText myTabTheme $
+        subLayout [] (Simplest) $
         mySpacing 5 $
         magnifier $
         ResizableTall 1 (3/100) (1/2) []
@@ -112,13 +116,11 @@ myTabTheme = def
 -- The layout hook
 myLayoutHook =
         windowNavigation $
-        addTabs shrinkText myTabTheme $
-        subLayout [] (Simplest) $
+        windowArrange $
         limitWindows 12 $
         smartBorders $
         avoidStruts $
         mouseResize $
-        windowArrange $
         T.toggleLayouts magnify $
         mkToggle (single NBFULL) tall ||| magnify
 
@@ -230,21 +232,15 @@ myKeys =
 main :: IO ()
 main = do
         -- launch xmobar
-        xmproc0 <- spawnPipe "xmobar -x 0 ${HOME}/.config/xmobar/xmobarrc"
+        xmproc <- spawnPipe "xmobar -x 0 ${HOME}/.config/xmobar/xmobarrc"
 
         xmonad $ ewmh def
                 {
                 manageHook = ( isFullscreen --> doFullFloat ) <+> myManageHook <+> manageDocks,
-                -- Run xmonad commands from command line with "xmonadctl command". Commands include:
-                -- shrink, expand, next-layout, default-layout, restart-wm, xterm, kill, refresh, run,
-                -- focus-up, focus-down, swap-up, swap-down, swap-master, sink, quit-wm. You can run
-                -- "xmonadctl 0" to generate full list of commands written to ~/.xsession-errors.
-                -- To compile xmonadctl: ghc -dynamic xmonadctl.hs
                 handleEventHook = serverModeEventHookCmd
                                 <+> serverModeEventHook
                                 <+> serverModeEventHookF "XMONAD_PRINT" (io . putStrLn)
                                 <+> docksEventHook,
-                                -- <+> fullscreenEventHook  -- this does NOT work right if using multi-monitors!
                 modMask = myModMask,
                 terminal = myTerminal,
                 startupHook = myStartupHook,
@@ -256,7 +252,7 @@ main = do
                 focusFollowsMouse = False,
                 logHook = dynamicLogWithPP $ xmobarPP
                         {
-                        ppOutput = \x -> hPutStrLn xmproc0 x,
+                        ppOutput = \x -> hPutStrLn xmproc x,
                         -- Current workspace in xmobar
                         ppCurrent = xmobarColor "#98be65" "" . wrap "[" "]",
                         -- Visible but not current workspace
@@ -268,7 +264,7 @@ main = do
                         -- Title of active window in xmobar
                         ppTitle = xmobarColor "#b3afc2" "" . shorten 60,
                         -- Separators in xmobar
-                        ppSep =  "<fc=#666666> <fn=1>|</fn> </fc>",
+                        ppSep =  "<fc=#666666> | </fc>",
                         -- Urgent workspace
                         ppUrgent = xmobarColor "#C45500" "" . wrap "!" "!",
                         -- # of windows current workspace
