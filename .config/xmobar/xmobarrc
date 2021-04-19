@@ -1,0 +1,27 @@
+-- http://projects.haskell.org/xmobar/
+-- install xmobar with these flags: --flags="with_alsa" --flags="with_mpd" --flags="with_xft"  OR
+-- flags="all_extensions"
+-- you can find weather location codes here: http://weather.noaa.gov/index.html
+
+Config {
+        font    = "xft:JetBrains Mono:light:size=9:antialias=true:hinting=true",
+        additionalFonts = [ "xft:Symbols Nerd Font:pixelsize=10:antialias=true:hinting=true" ],
+        bgColor = "#1c1e26",
+        fgColor = "#ff6c6b",
+        position = Static { xpos = 0 , ypos = 0, width = 1920, height = 27 },
+        lowerOnStart = True,
+        hideOnStart = False,
+        allDesktops = True,
+        persistent = True,
+        commands = [
+                -- Time and date
+                Run DateZone "%a, %d de %B %H:%M:%S" "pt_BR.UTF-8" "America/Sao_Paulo" "date" 10,
+                -- Network up and down
+                Run Network "enp6s0" ["-t", "<fn=1>\xf0ab</fn>  <rx>kb  <fn=1>\xf0aa</fn>  <tx>kb"] 20,
+                -- The workspaces are 'clickable' in my configs.
+                Run UnsafeStdinReader
+                    ],
+       sepChar = "%",
+       alignSep = "}{",
+       template = " %UnsafeStdinReader% }{ <fc=#98be65> %enp6s0% </fc> <fc=#46d9ff> %date%  </fc>"
+       }
