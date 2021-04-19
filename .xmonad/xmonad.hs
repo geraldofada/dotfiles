@@ -9,11 +9,10 @@ import XMonad.Actions.MouseResize
 import XMonad.Actions.Promote
 import XMonad.Actions.RotSlaves (rotSlavesDown, rotAllDown)
 import XMonad.Actions.WithAll (sinkAll, killAll)
+import XMonad.Actions.CycleWS
 
 -- Data
-import Data.Maybe (fromJust)
 import Data.Monoid
-import qualified Data.Map as M
 
 -- Hooks
 import XMonad.Hooks.EwmhDesktops
@@ -119,6 +118,7 @@ myLayoutHook =
         T.toggleLayouts magnify $
         mkToggle (single NBFULL) tall ||| magnify
 
+myWorkspaces :: [String]
 myWorkspaces = [" I ", " II ", " III ", " IV ", " V ", " VI ", " VII ", " VIII ", " IX "]
 
 myManageHook :: XMonad.Query (Data.Monoid.Endo WindowSet)
@@ -172,19 +172,21 @@ myKeys =
         ("M-S-t", sinkAll),
 
         -- move focus to the master window
-        ("M-n", windows W.focusMaster),
+        ("M-m", windows W.focusMaster),
+        -- Swap the focused window and the master window
+        ("M-S-m", windows W.swapMaster),
         -- Move focus to the next window
         ("M-j", windows W.focusDown),
         -- Move focus to the prev window
         ("M-k", windows W.focusUp),
-        -- Swap the focused window and the master window
-        ("M-S-m", windows W.swapMaster),
         -- Swap focused window with next window
         ("M-S-j", windows W.swapDown),
         -- Swap focused window with prev window
         ("M-S-k", windows W.swapUp),
         -- Moves focused window to master, others maintain order
         ("M-<Backspace>", promote),
+        -- switch to last used workspace
+        ("M-<Tab>", toggleWS),
         -- Rotate all windows except master and keep focus in place
         ("M-S-<Tab>", rotSlavesDown),
         -- Rotate all the windows in the current stack
@@ -193,7 +195,7 @@ myKeys =
         -- switch to next layout
         ("M-S-<Return>", sendMessage NextLayout),
         -- toggles noborder/full
-        ("M-m", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts),
+        ("M-a", sendMessage (MT.Toggle NBFULL) >> sendMessage ToggleStruts),
 
         -- Window resizing
         -- Shrink horiz window width
