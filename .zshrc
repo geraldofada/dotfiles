@@ -46,6 +46,7 @@ alias mis="hledger is -M"
 alias rr="ranger"
 alias pc="sxiv"
 alias pdf="zathura"
+alias usbeject="udiskie-umount -d -e"
 
 # ENV VARS
 export LEDGER_FILE="$HOME/notes/finance/2021.journal"
