@@ -48,6 +48,7 @@ mkdir "${temp_dest}"
 alias copy="cp -R -L --preserve=all"
 if [ "$1" = "-w" ]; then
     copy "${HOME}/keepass"            "${temp_dest}"
+    copy "${HOME}/gnucash"            "${temp_dest}"
     copy "${HOME}/notes"              "${temp_dest}"
     copy "${HOME}/uff"                "${temp_dest}"
     copy "${HOME}/books"              "${temp_dest}"
@@ -62,6 +63,7 @@ if [ "$1" = "-w" ]; then
 elif [ "$1" = "-d" ]; then
     copy "${HOME}"/notes              "${temp_dest}"
     copy "${HOME}"/keepass            "${temp_dest}"
+    copy "${HOME}"/gnucash            "${temp_dest}"
 fi
 echo "Ok."
 
