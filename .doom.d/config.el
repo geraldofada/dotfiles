@@ -73,7 +73,7 @@
 (use-package! latex
   :defer t
   :init
-    (setq +latex-viewers '(sumatrapdf))
+    (setq +latex-viewers '(zathura))
   )
 
 (map! :after latex
