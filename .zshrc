@@ -36,6 +36,9 @@ zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.
 
+# asdf (i'm using the AUR version, hence the opt instead of the $HOME)
+. /opt/asdf-vm/asdf.sh
+
 # Aliases
 alias ls="exa"
 alias ll="exa -la"
