@@ -111,5 +111,6 @@
             "position": -1
         },
     ],
-    "editor.minimap.enabled": false
+    "editor.minimap.enabled": false,
+    "editor.lineNumbers": "off"
 }
