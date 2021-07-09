@@ -110,5 +110,6 @@
             "keys": "\t",
             "position": -1
         },
-    ]
+    ],
+    "editor.minimap.enabled": false
 }
